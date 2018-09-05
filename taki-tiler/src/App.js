@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
 
@@ -17,7 +18,9 @@ class App extends Component {
       document.body.style.cursor='wait';
       this.setState({appPage: "appPageX"})
     }
-    else console.log(this.state);
+    else{
+      console.log(this.state);
+    }
     
   }
 
@@ -47,29 +50,31 @@ class App extends Component {
 
         <div>
           <header className="App-header">
-            
             <h1 className="App-title">Welcome to Taki-Tiler</h1>
           </header>
           <fieldset>
               <legend>Sign in</legend>
-              
               <div>
-                  <label htmlFor="userName">Username:</label>
-                  <input type="email" required pattern=".+@taqtile.com"
-                        id="username" name="username" placeholder="taki-tiler@taqtile.com"
-                        title="Please enter a valid email"
-                        onBlur={(event) => this.emailChangedHandler(event)}
-                        />
+                <label htmlFor="userName">Username:</label>
+                <input type="email" 
+                      required 
+                      pattern=".+@taqtile.com"
+                      id="username" 
+                      name="username" 
+                      placeholder="taki-tiler@taqtile.com"
+                      title="Please enter a valid email"
+                      onBlur={this.emailChangedHandler}/>
               </div>
-
               <div>
-                  <label htmlFor="password">Password:</label>
-                  <input type="password" id="password" name="password"
-                        minLength="4"  required title="Password must contain at least 4 characters"
-                        placeholder="4 characters minimum" 
-                        onBlur={(event) => this.passwordChangedHandler(event)}/>
+                <label htmlFor="password">Password:</label>
+                <input type="password" 
+                      id="password" 
+                      name="password"
+                      minLength="4"  
+                      required title="Password must contain at least 4 characters"
+                      placeholder="4 characters minimum" 
+                      onBlur={this.passwordChangedHandler}/>
               </div>
-
               <button value="Sign in" onClick={this.onSubmitHandler}>Sign In</button>
           </fieldset>
         </div>
