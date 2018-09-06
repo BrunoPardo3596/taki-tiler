@@ -28,7 +28,6 @@ class Login extends Component {
         document.body.style.cursor='wait';
         axios.post('https://tq-template-server-sample.herokuapp.com/authenticate', this.state.data)
           .then(response => {
-            console.log(this.props)
             localStorage.setItem("token", response.data.data.token),
             localStorage.setItem("name", response.data.data.user.name),
             this.props.history.push({ pathname: '/peopleList' });

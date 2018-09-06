@@ -3,13 +3,10 @@ import './App.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Login from './Login/Login';
-import PersonList from './PersonList/PersonList';
+import PeopleList from './PeopleMapPage/PeopleMapPage';
 
 
 class App extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
 
@@ -17,7 +14,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route exact path="/" component={Login}/>
-          <Route path="/personList" component={PersonList}/>
+          <Route path="/peopleList" component={PeopleList}/>
         </div>
       </Router>
     );
