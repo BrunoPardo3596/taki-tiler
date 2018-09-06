@@ -1,0 +1,53 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 100px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+legend {
+  background-color: #000;
+  color: #fff;
+  padding: 3px 6px;
+}
+
+.output {
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+label {
+  display: inline-block;
+  font-size: .9rem;
+  width: 35%;
+}
+
+input[type='email'],
+input[type='password'] {
+  width: 60%;
+}
+
+input:invalid:not(:focus) {
+  outline: 1px solid #f00;
+}
+
+input {
+  margin: .4rem 0;
+}
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

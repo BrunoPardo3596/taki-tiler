@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Login.css';
 import axios from 'axios';
 
 class Login extends Component {
@@ -28,9 +28,10 @@ class Login extends Component {
         document.body.style.cursor='wait';
         axios.post('https://tq-template-server-sample.herokuapp.com/authenticate', this.state.data)
           .then(response => {
+            console.log(this.props)
             localStorage.setItem("token", response.data.data.token),
             localStorage.setItem("name", response.data.data.user.name),
-            this.props.history.push({ pathname: '/nextPage' });
+            this.props.history.push({ pathname: '/peopleList' });
             document.body.style.cursor='default'})
           .catch((err) => {
             document.body.style.cursor='default'
@@ -49,10 +50,13 @@ class Login extends Component {
 
     data.email = email;
 
-    this.setState({data: data});
+    // this.setState({data: data});
 
     const validateFormat = email.includes("@taqtile.com");
-    this.setState({emailValid: validateFormat});
+    this.setState({
+      data : data,
+      emailValid: validateFormat
+    });
   }
 
   passwordChangedHandler = (event) => {
@@ -63,10 +67,13 @@ class Login extends Component {
     
     data.password = password;
 
-    this.setState({data: data});
+    //this.setState({data: data});
     
     const validateFormat = password.length >= 4;
-    this.setState({passwordValid: validateFormat});
+    this.setState({
+      data: data,
+      passwordValid: validateFormat
+    });
   }
 
   render() {
