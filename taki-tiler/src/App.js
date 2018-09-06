@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from './Login';
 
-
 class App extends Component {
   constructor(props){
     super(props)
@@ -11,7 +10,6 @@ class App extends Component {
 
 
   render() {
-
     const nextPage = () => (
       <div>
          <h1>OUTRA PAGINA</h1>
