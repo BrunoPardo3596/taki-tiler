@@ -12,7 +12,7 @@ class PeopleMapPage extends Component {
         perPage:3,
         people: [],
         offset: 0,
-        allPeople: []
+        pageCount: 0
     }
   }
   
@@ -36,10 +36,14 @@ class PeopleMapPage extends Component {
   }
 
   componentDidMount(){
+    axios.get("https://tq-template-server-sample.herokuapp.com/users",
+        {headers: {Authorization: localStorage.getItem("token")}})
+        .then(response => {
+          this.setState({pageCount: response.data.pagination.total})
+        });
     axios.get("https://tq-template-server-sample.herokuapp.com/users?pagination={\"page\": 0 , \"window\": 3}",
         {headers: {Authorization: localStorage.getItem("token")}})
         .then(response => {
-          this.setState({allPeople: response.data.data}),
           this.setState({people: response.data.data})
         });
   }
@@ -47,7 +51,7 @@ class PeopleMapPage extends Component {
   render(){
 
     // let pageCount = this.state.allPeople.length/this.state.perPage ;
-    let pageCount = 15;
+    let pageCount = this.state.pageCount/this.state.perPage;
 
     return(
         <div className="PersonList">
