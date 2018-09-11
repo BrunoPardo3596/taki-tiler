@@ -12,7 +12,7 @@ class PeopleList extends Component {
 
     onUserClick = (id) => {
         localStorage.setItem("userId", id);
-        this.props.prop.history.push({ pathname: '/userInfo' });
+        this.props.prop.history.push({ pathname: '/user-info' });
     }
 
     render(){

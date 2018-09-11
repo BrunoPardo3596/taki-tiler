@@ -10,8 +10,13 @@ class UserInfo extends Component {
             id : 0,
             name: '',
             email: '',
-            role: ''
+            role: '',
         }
+    }
+
+    editHandler = () => {
+        localStorage.setItem("editId", this.state.id);
+        this.props.history.push({ pathname: '/new-user' })
     }
 
     componentDidMount(){
@@ -27,25 +32,30 @@ class UserInfo extends Component {
         })
     }
 
-  render() {
+    render() {
 
-    return (
-        <div className="UserInfo">
-            <div className="UserHeader">
-                <button onClick={this.props.history.goBack}>Go Back</button>
-                <h1>Description page {this.state.name}</h1>
+        return (
+            <div className="UserInfo">
+                <div className="GoBack">
+                    <button onClick={this.props.history.goBack}>Go Back</button>
+                </div>
+                <div className="UserHeader">
+                    <h1>Description page {this.state.name}</h1>
+                </div>
+                <div className="User"width="800px">
+                    Name: {this.state.name}
+                </div>
+                <div className="User"width="800px">
+                    Role: {this.state.role}
+                </div>
+                <div className="User"width="800px">
+                    Email: {this.state.email}
+                </div>
+                <div className="EditButton">
+                    <button onClick={this.editHandler}>Edit</button>
+                </div>
             </div>
-            <div className="User"width="800px">
-                Name: {this.state.name}
-            </div>
-            <div className="User"width="800px">
-                Role: {this.state.role}
-            </div>
-            <div className="User"width="800px">
-                Email: {this.state.email}
-            </div>
-        </div>
-    );
+        );
   }
 }
 

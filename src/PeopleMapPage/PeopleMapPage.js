@@ -35,6 +35,11 @@ class PeopleMapPage extends Component {
     
   }
 
+  newUserHandler = () => {
+    localStorage.setItem("editId", 0);
+    this.props.history.push({ pathname: '/new-user' });
+  }
+
   componentDidMount(){
     axios.get("https://tq-template-server-sample.herokuapp.com/users",
         {headers: {Authorization: localStorage.getItem("token")}})
@@ -50,30 +55,40 @@ class PeopleMapPage extends Component {
 
   render(){
 
-    // let pageCount = this.state.allPeople.length/this.state.perPage ;
     let pageCount = this.state.pageCount/this.state.perPage;
 
     return(
         <div className="PersonList">
-            <div className="ListHeader">
-                <h1>Welcome {localStorage.getItem("name")}</h1>
-            </div>
-            <h2>Taki Tiler user list:</h2>
-            <div className="PeopleBox">
+          <div className="ListHeader">
+            <h1>Welcome {localStorage.getItem("name")}</h1>
+          </div>
+          <div>
+            <fieldset>
+              <legend>Taki Tiler user list</legend>
+              <div className="PeopleBox">
                 <People people={this.state.people} prop={this.props}></People>
                 <ReactPaginate 
-                    previousLabel={"previous"}
-                    nextLabel={"next"}
-                    breakLabel={<a href="">...</a>}
-                    breakClassName={"break-me"}
-                    pageCount={pageCount}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={this.handlePageClick}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"}/>
-            </div>
+                  previousLabel={"previous"}
+                  nextLabel={"next"}
+                  breakLabel={<a href="">...</a>}
+                  breakClassName={"break-me"}
+                  pageCount={pageCount}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  subContainerClassName={"pages pagination"}
+                  activeClassName={"active"}/>
+              </div>
+            </fieldset>
+          </div>
+          <div>
+            <fieldset>
+              <legend>New User</legend>
+              <p>For new user creation:</p>
+              <button value="New User" onClick={this.newUserHandler}>Create</button>
+            </fieldset>
+          </div>
         </div>
     )
   }
