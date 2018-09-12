@@ -16,7 +16,7 @@ class UserInfo extends Component {
 
     editHandler = () => {
         localStorage.setItem("editId", this.state.id);
-        this.props.history.push({ pathname: `/new-user/${this.state.id}`})
+        this.props.history.push({ pathname: `/new-user/${this.state.id}`});
     }
 
     componentDidMount(){
@@ -27,7 +27,7 @@ class UserInfo extends Component {
             this.setState({
                 email: response.data.data.email,
                 name: response.data.data.name,
-                role: response.data.data.role
+                role: response.data.data.role,
             });
         })
     }
@@ -56,7 +56,7 @@ class UserInfo extends Component {
                 </div>
             </div>
         );
-  }
+    }
 }
 
 export default UserInfo;

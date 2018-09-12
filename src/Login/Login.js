@@ -45,7 +45,7 @@ class Login extends Component {
     const validateFormat = email.includes("@taqtile.com");
     this.setState({
       data : data,
-      emailValid: validateFormat
+      emailValid: validateFormat,
     });
   }
 
@@ -56,7 +56,7 @@ class Login extends Component {
     const validateFormat = password.length >= 4;
     this.setState({
       data: data,
-      passwordValid: validateFormat
+      passwordValid: validateFormat,
     });
   }
 

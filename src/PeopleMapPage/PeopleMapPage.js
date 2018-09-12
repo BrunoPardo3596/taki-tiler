@@ -9,16 +9,15 @@ class PeopleMapPage extends Component {
     super(props)
 
     this.state = {
-        perPage:3,
-        people: [],
-        offset: 0,
-        pageCount: 0
+      perPage:3,
+      people: [],
+      offset: 0,
+      pageCount: 0,
     }
   }
   
   handlePageClick = (data) => {
     let selected = data.selected;
-    //let offset = Math.ceil(selected * this.state.perPage);
 
     this.setState({offset: selected}, () => {
       this.loadCommentsFromServer();
@@ -26,7 +25,6 @@ class PeopleMapPage extends Component {
   };
 
   loadCommentsFromServer() {
-    //let data = this.state.allPeople.slice(this.state.offset, this.state.perPage + this.state.offset);
     axios.get("https://tq-template-server-sample.herokuapp.com/users?pagination={\"page\":" + this.state.offset +", \"window\": 3}",
     {headers: {Authorization: localStorage.getItem("token")}})
     .then(response => {
@@ -41,15 +39,15 @@ class PeopleMapPage extends Component {
 
   componentDidMount(){
     axios.get("https://tq-template-server-sample.herokuapp.com/users",
-        {headers: {Authorization: localStorage.getItem("token")}})
-        .then(response => {
-          this.setState({pageCount: response.data.pagination.total})
-        });
+      {headers: {Authorization: localStorage.getItem("token")}})
+      .then(response => {
+        this.setState({pageCount: response.data.pagination.total})
+      });
     axios.get("https://tq-template-server-sample.herokuapp.com/users?pagination={\"page\": 0 , \"window\": 3}",
-        {headers: {Authorization: localStorage.getItem("token")}})
-        .then(response => {
-          this.setState({people: response.data.data})
-        });
+      {headers: {Authorization: localStorage.getItem("token")}})
+      .then(response => {
+        this.setState({people: response.data.data})
+      });
   }
 
   render(){
