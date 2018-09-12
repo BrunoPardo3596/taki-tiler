@@ -23,6 +23,10 @@ legend {
   padding: 3px 6px;
 }
 
+fieldset {
+  margin-top: 5px;
+}
+
 .output {
   font: 1rem 'Fira Sans', sans-serif;
 }

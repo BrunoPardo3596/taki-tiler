@@ -14,6 +14,16 @@
     color: white;
 }
 
+legend {
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+}
+
+fieldset {
+    margin-top: 5px;
+}
+
 .Person {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

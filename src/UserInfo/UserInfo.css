@@ -19,3 +19,11 @@
     box-shadow: 0 2px 3px #ccc;
     padding: 16px;
 }
+
+.EditButton {
+    margin-top: 10px;
+}
+
+.GoBack {
+    float: left;
+}
