@@ -19,7 +19,8 @@ class Login extends Component {
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
  
-  onSubmitHandler = () => {
+  onSubmitHandler = (event) => {
+    event.preventDefault();
     if(this.state.emailValid && this.state.passwordValid){
       document.body.style.cursor='wait';
       axios.post('https://tq-template-server-sample.herokuapp.com/authenticate', this.state.data)
@@ -30,7 +31,7 @@ class Login extends Component {
           document.body.style.cursor='default'})
         .catch((err) => {
           document.body.style.cursor='default'
-          alert("Password or login don't match");
+          this.props.setAlert("danger", true, "Password or login don't match");
         });
     } else {
       console.log(this.state);
@@ -65,34 +66,36 @@ class Login extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to Taki-Tiler</h1>
         </header>
-        <fieldset>
-          <legend>Sign in</legend>
-          <div>
-            <label htmlFor="userName">Username:</label>
-            <input
-              type="email" 
-              required 
-              pattern=".+@taqtile.com"
-              id="username" 
-              name="username" 
-              placeholder="taki-tiler@taqtile.com"
-              title="Please enter a valid email"
-              value={this.state.email}
-              onChange={this.emailChangedHandler}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" 
-              id="password" 
-              name="password"
-              minLength="4"  
-              required title="Password must contain at least 4 characters"
-              placeholder="4 characters minimum" 
-              onBlur={this.passwordChangedHandler}/>
-          </div>
-          <button value="Sign in" onClick={this.onSubmitHandler}>Sign In</button>
-        </fieldset>
+        <form onSubmit={this.onSubmitHandler}>
+          <fieldset>
+            <legend>Sign in</legend>
+            <div>
+              <label htmlFor="userName">Username:</label>
+              <input
+                type="email" 
+                required 
+                pattern=".+@taqtile.com"
+                id="username" 
+                name="username" 
+                placeholder="taki-tiler@taqtile.com"
+                title="Please enter a valid email"
+                value={this.state.email}
+                onChange={this.emailChangedHandler}
+              />
+            </div>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input type="password" 
+                id="password" 
+                name="password"
+                minLength="4"  
+                required title="Password must contain at least 4 characters"
+                placeholder="4 characters minimum" 
+                onChange={this.passwordChangedHandler}/>
+            </div>
+            <button>Sign In</button>
+          </fieldset>
+        </form>
       </div>
     );
   }

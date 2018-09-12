@@ -36,8 +36,7 @@ class PeopleMapPage extends Component {
   }
 
   newUserHandler = () => {
-    localStorage.setItem("editId", 0);
-    this.props.history.push({ pathname: '/new-user' });
+    this.props.history.push({ pathname: '/new-user/0' });
   }
 
   componentDidMount(){
