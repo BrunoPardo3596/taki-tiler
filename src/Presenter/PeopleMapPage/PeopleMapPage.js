@@ -3,14 +3,11 @@ import './PeopleMapPage.css';
 import People from './PeopleList'
 import ReactPaginate from 'react-paginate';
 import User from '../../Domain/UserUseCases';
-import UserRepository from '../../Data/UserRepository';
-
 class PeopleMapPage extends Component {
   constructor(props){
     super(props)
 
-    this.userRepo = UserRepository.Instance();
-    this.user = User.Instance(this.userRepo);
+    this.user = User;
 
     this.state = {
         perPage:3,

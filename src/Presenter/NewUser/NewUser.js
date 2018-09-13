@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './NewUser.css';
 import User from '../../Domain/UserUseCases';
-import UserRepository from '../../Data/UserRepository';
 
 class NewUser extends Component {
   constructor(props) {
     super(props)
 
-    this.userRepo = UserRepository.Instance();
-    this.user = User.Instance(this.userRepo);
+    this.user = User;
 
     this.state = {
       emailValid: false,
@@ -52,7 +50,7 @@ class NewUser extends Component {
     const name = event.target.value;
     const data = { ...this.state.data };
     data.name = name;
-    const nameFormat = RegExp('[A-Z][a-z]*');
+    const nameFormat = RegExp('[A-Za-z]*');
     const validateFormat = nameFormat.test(event.target.value);
     this.setState({
       data: data,
@@ -95,7 +93,7 @@ class NewUser extends Component {
         })
       }
     } else {
-      console.log(this.state);
+      this.props.setAlert("danger", true, "Fill the required infos");
     }
   }
 

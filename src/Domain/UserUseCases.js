@@ -2,15 +2,8 @@ import UserRepository from '../Data/UserRepository';
 
 class UserUseCases{
 
-  constructor(userRepository){
-    this.userRepository = userRepository;
-  }
-
-  static Instance(userRepo){
-    var instance;
-    if(!instance)
-      instance = new UserRepository(userRepo);
-    return instance
+  constructor(){
+    this.userRepository = UserRepository;
   }
 
   getUserList = (page, window) => {
@@ -38,4 +31,6 @@ class UserUseCases{
   }
 
 }
-export default UserUseCases;
+const instance = new UserUseCases();
+Object.freeze(instance);
+export default instance;

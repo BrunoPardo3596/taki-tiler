@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './Login.css';
 import User from '../../Domain/UserUseCases';
-import UserRepository from '../../Data/UserRepository';
 
 class Login extends Component {
   constructor(props){
     super(props)
 
-    this.userRepo = UserRepository.Instance();
-    this.user = User.Instance(this.userRepo);
+    this.user = User;
 
     this.state = {
       emailValid: false,
@@ -37,7 +35,7 @@ class Login extends Component {
         }
       });
     } else {
-      console.log(this.state);
+      this.props.setAlert("danger", true, "Fill the required infos");
     }
   }
 

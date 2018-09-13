@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './UserInfo.css';
 import User from '../../Domain/UserUseCases';
-import UserRepository from '../../Data/UserRepository';
 
 class UserInfo extends Component {
     constructor(props){
         super(props)
 
-        this.userRepo = UserRepository.Instance();
-        this.user = User.Instance(this.userRepo);
+        this.user = User;
 
         this.state = {
             id : 0,
