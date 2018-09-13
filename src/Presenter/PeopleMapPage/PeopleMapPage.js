@@ -2,17 +2,21 @@ import React, { Component } from 'react';
 import './PeopleMapPage.css';
 import People from './PeopleList'
 import ReactPaginate from 'react-paginate';
-import axios from 'axios';
+import User from '../../Domain/UserUseCases';
+import UserRepository from '../../Data/UserRepository';
 
 class PeopleMapPage extends Component {
   constructor(props){
     super(props)
 
+    this.userRepo = UserRepository.Instance();
+    this.user = User.Instance(this.userRepo);
+
     this.state = {
-      perPage:3,
-      people: [],
-      offset: 0,
-      pageCount: 0,
+        perPage:3,
+        people: [],
+        offset: 0,
+        pageCount: 0
     }
   }
   
@@ -20,17 +24,12 @@ class PeopleMapPage extends Component {
     let selected = data.selected;
 
     this.setState({offset: selected}, () => {
-      this.loadCommentsFromServer();
+      this.loadUsersFromServer();
     });
   };
 
-  loadCommentsFromServer() {
-    axios.get("https://tq-template-server-sample.herokuapp.com/users?pagination={\"page\":" + this.state.offset +", \"window\": 3}",
-    {headers: {Authorization: localStorage.getItem("token")}})
-    .then(response => {
-      this.setState({people: response.data.data});
-    })
-    
+  loadUsersFromServer() {
+    this.user.getUserList(this.state.offset, this.state.perPage).then(response => this.setState({people: response}));
   }
 
   newUserHandler = () => {
@@ -38,16 +37,8 @@ class PeopleMapPage extends Component {
   }
 
   componentDidMount(){
-    axios.get("https://tq-template-server-sample.herokuapp.com/users",
-      {headers: {Authorization: localStorage.getItem("token")}})
-      .then(response => {
-        this.setState({pageCount: response.data.pagination.total})
-      });
-    axios.get("https://tq-template-server-sample.herokuapp.com/users?pagination={\"page\": 0 , \"window\": 3}",
-      {headers: {Authorization: localStorage.getItem("token")}})
-      .then(response => {
-        this.setState({people: response.data.data})
-      });
+    this.user.getTotalUsers().then(response => this.setState({pageCount: response}));
+    this.user.getUserList(0, this.state.perPage).then(response => this.setState({people: response}));
   }
 
   render(){

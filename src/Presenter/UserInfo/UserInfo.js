@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './UserInfo.css';
-import axios from 'axios';
+import User from '../../Domain/UserUseCases';
+import UserRepository from '../../Data/UserRepository';
 
 class UserInfo extends Component {
     constructor(props){
         super(props)
+
+        this.userRepo = UserRepository.Instance();
+        this.user = User.Instance(this.userRepo);
 
         this.state = {
             id : 0,
@@ -15,19 +19,16 @@ class UserInfo extends Component {
     }
 
     editHandler = () => {
-        localStorage.setItem("editId", this.state.id);
         this.props.history.push({ pathname: `/new-user/${this.state.id}`});
     }
 
     componentDidMount(){
         this.setState({id: localStorage.getItem("userId")});
-        axios.get('https://tq-template-server-sample.herokuapp.com/users/' + localStorage.getItem("userId"),
-        {headers: {Authorization: localStorage.getItem("token")}})
-        .then(response => {
+        this.user.getUserDetail(localStorage.getItem("userId")).then(response => {
             this.setState({
-                email: response.data.data.email,
-                name: response.data.data.name,
-                role: response.data.data.role,
+                email: response.email,
+                name: response.name,
+                role: response.role,
             });
         })
     }

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './Login.css';
-import axios from 'axios';
+import User from '../../Domain/UserUseCases';
+import UserRepository from '../../Data/UserRepository';
 
 class Login extends Component {
   constructor(props){
     super(props)
+
+    this.userRepo = UserRepository.Instance();
+    this.user = User.Instance(this.userRepo);
 
     this.state = {
       emailValid: false,
@@ -23,16 +27,15 @@ class Login extends Component {
     event.preventDefault();
     if(this.state.emailValid && this.state.passwordValid){
       document.body.style.cursor='wait';
-      axios.post('https://tq-template-server-sample.herokuapp.com/authenticate', this.state.data)
-        .then(response => {
-          localStorage.setItem("token", response.data.data.token);
-          localStorage.setItem("name", response.data.data.user.name);
+      this.user.validateUser(this.state.data).then(response => {
+        if(response){
           this.props.history.push({ pathname: '/people-list' });
-          document.body.style.cursor='default'})
-        .catch((err) => {
+          document.body.style.cursor='default';
+        } else {
           document.body.style.cursor='default'
           this.props.setAlert("danger", true, "Password or login don't match");
-        });
+        }
+      });
     } else {
       console.log(this.state);
     }
