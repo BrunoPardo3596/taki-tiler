@@ -17,6 +17,10 @@
   font-size: large;
 }
 
+.text-danger {
+  font-size: small;
+}
+
 legend {
   background-color: #000;
   color: #fff;

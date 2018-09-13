@@ -3,6 +3,7 @@ import './PeopleMapPage.css';
 import People from './PeopleList'
 import ReactPaginate from 'react-paginate';
 import User from '../../Domain/UserUseCases';
+
 class PeopleMapPage extends Component {
   constructor(props){
     super(props)

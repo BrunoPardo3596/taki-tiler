@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './NewUser.css';
 import User from '../../Domain/UserUseCases';
+import ErrorMessage from '../ErrorMessage';
 
 class NewUser extends Component {
   constructor(props) {
@@ -39,7 +40,13 @@ class NewUser extends Component {
     const password = event.target.value;
     const data = { ...this.state.data };
     data.password = password;
-    const validateFormat = password.length >= 4;
+    const regexLetters = RegExp('[A-Za-z]');
+    const regexNumbers = RegExp('[0-9]');
+    const validateFormat = (
+      password.length >= 7 && 
+      regexLetters.test(event.target.value) && 
+      regexNumbers.test(event.target.value)
+    );
     this.setState({
       data: data,
       passwordValid: validateFormat
@@ -141,6 +148,7 @@ class NewUser extends Component {
                 defaultValue={this.state.data.name}
                 onChange={this.nameChangedHandler}
               />
+              <ErrorMessage isValid={!this.state.nameValid} content="Name should contain only letters" />
             </div>
             <div>
               <label htmlFor="email">Email:</label>
@@ -155,6 +163,7 @@ class NewUser extends Component {
                 defaultValue={this.state.data.email}
                 onChange={this.emailChangedHandler}
               />
+              <ErrorMessage isValid={!this.state.emailValid} content="Please follow the pattern: @taqtile.com"/>
             </div>
             <div>
               <label htmlFor="password">Password:</label>
@@ -163,10 +172,12 @@ class NewUser extends Component {
                 disabled={this.props.match.params.id !== "0"}
                 id="password"
                 name="password"
-                minLength="4"
-                required title="Password must contain at least 4 characters"
-                placeholder="4 characters minimum"
-                onBlur={this.passwordChangedHandler} />
+                minLength="7"
+                required
+                placeholder="7 characters minimum"
+                onChange={this.passwordChangedHandler} 
+              />
+              <ErrorMessage isValid={!this.state.passwordValid} content="Password must contain at least 7 characters(letters and numbers)"/>
             </div>
             <div>
               <label htmlFor="role">Role:</label>

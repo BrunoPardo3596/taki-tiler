@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
 import User from '../../Domain/UserUseCases';
+import ErrorMessage from '../ErrorMessage';
 
 class Login extends Component {
   constructor(props){
@@ -62,6 +63,7 @@ class Login extends Component {
   }
 
   render() {
+
     return (
       <div>
         <header className="App-header">
@@ -83,6 +85,7 @@ class Login extends Component {
                 value={this.state.email}
                 onChange={this.emailChangedHandler}
               />
+              <ErrorMessage isValid={!this.state.emailValid} content="Please follow the pattern: @taqtile.com"/>
             </div>
             <div>
               <label htmlFor="password">Password:</label>
@@ -92,7 +95,9 @@ class Login extends Component {
                 minLength="4"  
                 required title="Password must contain at least 4 characters"
                 placeholder="4 characters minimum" 
-                onChange={this.passwordChangedHandler}/>
+                onChange={this.passwordChangedHandler}
+              />
+              <ErrorMessage isValid={!this.state.passwordValid} content="Password must have at least 4 characters"/>
             </div>
             <button>Sign In</button>
           </fieldset>
